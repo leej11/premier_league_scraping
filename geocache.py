@@ -13,8 +13,6 @@ import os
 
 print(os.getcwd())
 os.chdir('C:/Users/Liam/Documents/Anki/Football/')
-os.mkdir('Leicester')
-os.chdir('Leicester')
 print(os.getcwd())
 
 
@@ -22,9 +20,21 @@ print(os.getcwd())
 page = requests.get('https://www.premierleague.com/clubs')
 soup = BeautifulSoup(page.text, 'html.parser')
 links = soup.find_all(href=re.compile("clubs/\d{1,2}"))
+teams = soup.find_all("h4", class_="clubName")
 
-squads = []
+football_db = {}
+
+x = 0
+for team in teams:
+    print(team.text)
+    football_db[team.text] = {}
+    football_db[team.text]['club_link'] = 'https://www.premierleague.com' + links[x]['href'].replace('overview', 'squad')
+    x += 1
+    
+
+football_db = {}
 for link in links:
+    football_db[]
     squads.append('https://www.premierleague.com' + link['href'].replace('overview', 'squad'))
 
 
